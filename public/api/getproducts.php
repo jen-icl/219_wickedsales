@@ -1,18 +1,27 @@
 <?php
 
     require_once('mysqlconnect.php');
-    $query = 'SELECT p.`id`, p.`name`, p.`price`, i.`url` AS `images`
+    require_once('functions.php');
+
+    set_exception_handler('handleError');
+
+    $query = "SELECT p.`id`, p.`name`, p.`price`,
+            i.`url` AS `images`
         FROM `products` AS p
         JOIN `images` AS i
             ON p.`id` = i.`products_id`
-        ORDER BY p.`id`';
+        ORDER BY p.`id`";
 
     /*procedural */
     $result = mysqli_query($conn, $query);
+    if(!$result){
+        throw new Exception('invalid query: '.mysqli_error($conn)); //utilize an object and pass in error
+    }
 
     $data = [];
-    while($row = mysqli_fetch_assoc($result)){ //mysqli_fetch_assoc() only gives one row of data;
+    while($row = mysqli_fetch_assoc($result)){ //mysqli_fetch_assoc() returns one row of associative array
         $currentID = $row['id'];
+        $currentID = intval($currentID);
         if(isset($data[$currentID])){
             //$data[$row['id']]['images'][] = $row['images'];
             $image = $row['images'];
