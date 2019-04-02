@@ -18,6 +18,7 @@
         throw new Exception('invalid query: '.mysqli_error($conn)); //utilize an object and pass in error
     }
 
+
     $data = [];
     while($row = mysqli_fetch_assoc($result)){ //mysqli_fetch_assoc() returns one row of associative array
         $currentID = $row['id'];
