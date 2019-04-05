@@ -1,9 +1,8 @@
 <?php
-    require_once('config.php');
-    require_once('mysqlconnect.php');
     require_once('functions.php');
-
     set_exception_handler('handleError');
+    require_once('mysqlconnect.php');
+    require_once('config.php');
 
     $query = "SELECT p.`id`, p.`name`, p.`price`,
             i.`url` AS `images`
