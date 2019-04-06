@@ -19,7 +19,7 @@
         ON p.`id` = i.`products_id`
     WHERE p.`id` = $id
     GROUP BY p.`id`";
-    print($query);
+
     $result = mysqli_query($conn, $query);
     //returns pointer to the data
 
@@ -35,7 +35,6 @@
     }
 
     $data = mysqli_fetch_assoc($result);
-    print_r($data);
     $data['price'] = intval($data['price']);
     $data['miscDetails'] = json_decode($data['miscDetails']);
     $data['images'] = explode(',', $data['images']);
@@ -47,5 +46,4 @@
 
     $json_output = json_encode($output);
     print($json_output);
-
 ?>
