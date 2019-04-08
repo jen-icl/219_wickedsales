@@ -31,12 +31,16 @@ class ProductDetails extends Component {
             return <h1 className="center">No Product Found</h1>
         }
 
-        const {description = 'No description available', name} = details;
+        const {description = 'No description available', name, images} = details;
+        const imageElement = images.map((image, index) => {
+            return <img key={index} src={`/dist/${image}`} alt="product image" />
+        })
 
         return(
             <div className="product-details">
                 <h1 className="center">{name}</h1>
                 <p>{description}</p>
+                {imageElement}
             </div>
         );
     }
