@@ -41,12 +41,24 @@
             throw new Exception(mysqli_error($conn));
         }
         if(mysqli_affected_rows($conn) === 0){
-            throw new Exception('data was not added to cart table');
+            throw new Exception('Data was not added to cart table');
         }
         $cart_id = mysqli_insert_id($conn);
         $_SESSION['cart_id'] = $cart_id;
     } else {
         $cart_id = $_SESSION['cart_id']; //if we do have a cart_id in the $_SESSION, we pull out the cart_id to use
+        $update_cart_query = "UPDATE `carts` SET
+            `item_count` = `item_count` + $product_quantity,
+            `total_price` = `total_price` + $product_total
+            WHERE `id` = $cart_id";
+
+        $update_result = mysqli_query($conn, $update_cart_query);
+        if(!$update_result){
+            throw new Exception(mysqli_error($conn));
+        }
+        if(mysqli_affected_rows($conn) === 0){
+            throw new Exception('Cart data was not updated');
+        }
     }
 
     $cart_item_query = "INSERT INTO `cart_items` SET
