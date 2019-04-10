@@ -13,6 +13,7 @@
     ];
 
     $cart_id = $_SESSION['cart_id'];
+    $user_id = 1;
 
     $cart_query =
     "SELECT c.`created`, c.`total_price`,
@@ -28,6 +29,7 @@
     JOIN `products` AS p
         ON ci.`products_id` = p.`id`
     WHERE c.`id` = $cart_id
+    AND c.`users_id` = $user_id
     ";
 
     $cart_data = mysqli_query($conn, $cart_query);
