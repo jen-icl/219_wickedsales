@@ -27,7 +27,6 @@ class Cart extends Component {
     }
 
     render(){
-        console.log('state', this.state);
         const {items, meta} = this.state;
         let totalItems = 0;
         const cartItems = items.map(({name, price, image, quantity, id}) => {
