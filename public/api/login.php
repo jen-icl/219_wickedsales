@@ -8,16 +8,16 @@
         'success' => false
     ];
 
-    $json_input = file_get_contents("php://input"); //returns raw string of the body
+    $json_input = file_get_contents("php://input"); //returns raw string from the body
     $input = json_decode($json_input, true); //true means convert objects into associative arrays as opposed to std objects (classes)
 
     if(empty($input['email'])){
         throw new Exception('email is a required value');
-    };
+    }
 
     if(empty($input['password'])){
         throw new Exception('password is a required value');
-    };
+    }
 
     $email = $input['email'];
     $password = $input['password'];
