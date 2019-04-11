@@ -39,15 +39,15 @@ class ProductAdd extends Component {
         return(
             <div className="right-align add-to-cart">
                 <span className="qty-container">
-                    <button onClick={this.decrementQty} className="btn btn-small btn-floating purple lighten-1">
+                    <button onClick={this.decrementQty} className="btn btn-small btn-floating red lighten-2">
                         <i className="material-icons">remove</i>
                     </button>
                     <span className="product-qty">{this.state.qty}</span>
-                    <button onClick={this.incrementQty} className="btn btn-small btn-floating purple lighten-1">
+                    <button onClick={this.incrementQty} className="btn btn-small btn-floating red lighten-2">
                         <i className="material-icons">add</i>
                     </button>
                 </span>
-                <button onClick={this.addToCart} className="btn purple darken-2">
+                <button onClick={this.addToCart} className="btn red darken-4">
                     <i className="material-icons">add_shopping_cart</i>
                 </button>
             </div>
