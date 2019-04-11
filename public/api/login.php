@@ -21,6 +21,7 @@
 
     $email = $input['email'];
     $password = $input['password'];
+    $email = addslashes($email); //will escape out of the quote characters in the string
     $hashedPassword = sha1($password);
     unset($_POST['password']); //after conversion of passoword, get rid of the hot potato
 
