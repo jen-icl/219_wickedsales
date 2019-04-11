@@ -1,19 +1,8 @@
 .home {
     text-align: center;
-}
-
-@media (max-width: 768px) {
-    .home {
+    .imgContainer {
         img {
-            width: 480px;
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    .home {
-        img {
-            width: 280px;
+            width: 100%;
         }
     }
 }
