@@ -8,7 +8,9 @@ export default props => {
     return(
         <div className="products">
             <Route exact path="/products" component={ProductList}/>
-            <Route path="/products/:product_id" component={ProductDetails} />
+            <Route path="/products/:product_id" render={routingProps => {
+                return <ProductDetails {...routingProps} updateCart={props.updateCart} />
+            }} />
         </div>
     );
 }
