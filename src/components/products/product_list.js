@@ -35,7 +35,7 @@ class ProductList extends Component {
 
         return (
             <div className="product-list">
-                <h1 className="center">Wicked Product List</h1>
+                <h1 className="center">Where's Wally Product List</h1>
                 <ul className="collection">
                     {productList}
                 </ul>

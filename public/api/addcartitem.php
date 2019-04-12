@@ -1,15 +1,21 @@
 <?php
     require_once('functions.php');
     set_exception_handler('handleError');
-    require_once('mysqlconnect.php');
     require_once('config.php');
+    require_once('mysqlconnect.php');
 
-    If(empty($_GET['product_id'])){
+    $product_quantity = 1;
+
+    if(!empty($_GET['quantity'])){
+        $product_quantity = $_GET['quantity'];
+    }
+
+    if(empty($_GET['product_id'])){
         throw new Exception('You must send a product_id (int) with your request');
     }
 
     $product_id = intval($_GET['product_id']);
-    $cart_quantity = $product_quantity = 1;
+    $cart_quantity = $product_quantity;
     $users_id = 1;
 
     $query_price = "SELECT `price` FROM `products` WHERE `id` = $product_id";
