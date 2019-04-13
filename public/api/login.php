@@ -21,16 +21,31 @@
 
     $email = $input['email'];
     $password = $input['password'];
-    $email = addslashes($email); //will escape out of the quote characters in the string
+    //$email = addslashes($email); //will escape out of the quote characters in the string
     $hashedPassword = sha1($password);
     unset($_POST['password']); //after conversion of passoword, get rid of the hot potato
 
+    // $query = "SELECT `id`, `name` FROM `users`
+    //     WHERE `email` = '$email' AND `password` = '$hashedPassword'
+    // ";
+
     $query = "SELECT `id`, `name` FROM `users`
-        WHERE `email` = '$email' AND `password` = '$hashedPassword'
+        WHERE `email` = ? AND `password` = ?
     ";
 
-    $result = mysqli_query($conn, $query); //returns mysqli data object that contains (barcode) references the data asked in the query
+    //send the safe query to the db
+    $statement = mysqli_prepare($conn, $query);
 
+    //send the dangerous data to the db
+    mysqli_stmt_bind_param($statement, 'ss', $email, $hashedPassword); //'s' is for string, 'd' is for numbers, 'ss' is for two strings
+
+    //tell the db to mix the query with the dangerous data
+    mysqli_stmt_execute($statement);
+
+    //get the result pointer for the prepared query statements data
+    $result = mysqli_stmt_get_result($statement); //returns mysqli data object that contains (barcode) references the data asked in the query
+
+    //$result = mysqli_query($conn, $query);
     if(!$result){
         throw new Exception(mysqli_error($conn));
     }
