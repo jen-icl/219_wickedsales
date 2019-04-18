@@ -27,7 +27,7 @@ class Nav extends Component {
                 text: 'Sign In'
             },
             {
-                to: '/acount/sign-up',
+                to: '/account/sign-up',
                 text: 'Sign Up'
             }
         ]
