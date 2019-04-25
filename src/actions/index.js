@@ -14,11 +14,13 @@ export function getAllProducts(){
 
 export function signIn(user){
     return function(dispatch){
-        axios.get('/api/sign-in.php').then(resp => {
+        axios.post('/api/sign-in.php', user).then(resp => {
             console.log('sign in resp', resp);
             if(resp.data.success){
+                localStorage.setItem('signedIn', 'true');
                 dispatch({
-                    type: types.SIGN_IN
+                    type: types.SIGN_IN,
+                    email: resp.data.email
                 });
             } else {
                 dispatch({
@@ -30,7 +32,28 @@ export function signIn(user){
 }
 
 export function signOut(user){
-    return {
-        type: types.SIGN_OUT
+    return function(dispatch){
+        axios.get('/api/sign-out.php').then((resp) => {
+            localStorage.removeItem('signedIn');
+            dispatch({
+                type: types.SIGN_OUT
+            });
+        });
     }
+}
+
+export const checkAuth = () => async dispatch => {
+    const {data: {success, email}} = await axios.get('/api/check-auth.php').then((resp) => {
+        if(success){
+            return dispatch({
+                type: types.SIGN_IN,
+                email
+            });
+        }
+
+        return dispatch({
+            type: types.SIGN_OUT
+        });
+
+    });
 }
